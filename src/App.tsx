@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 
 const images = [
-  { src: "peakabooshapes (1).png", alt: "African Elephant" },
-  { src: "peakabooshapes (2).png", alt: "Bengal Tiger" },
-  { src: "peakabooshapes (3).png", alt: "Giraffe" },
-  { src: "peakabooshapes (4).png", alt: "Emperor Penguin" },
-  { src: "peakabooshapes (6).png", alt: "Bald Eagle" },
-  { src: "peakabooshapes (8).png", alt: "Lion" },
-  { src: "peakabooshapes (9).png", alt: "Zebra" },
-  { src: "peakabooshapes (10).png", alt: "Kangaroo" },
-  { src: "peakabooshapes (11).png", alt: "Hippopotamus" },
+  { src: "peakabooshapes (1).png", alt: "This is a Cube" },
+  { src: "peakabooshapes (2).png", alt: "Sun is Circle" },
+  { src: "peakabooshapes (3).png", alt: "Peekaboo Shapes" },
+  { src: "peakabooshapes (4).png", alt: "Egg is Oval" },
+  { src: "peakabooshapes (6).png", alt: "Heart Shape" },
+  { src: "peakabooshapes (8).png", alt: "Star" },
+  { src: "peakabooshapes (9).png", alt: "Diamond" },
+  { src: "peakabooshapes (10).png", alt: "Door is Rectangle" },
+  { src: "peakabooshapes (11).png", alt: "Pizza slice is Triangle" },
   { src: "01-AfricanElephant.png", alt: "African Elephant" },
   { src: "02-BengalTiger.png", alt: "Bengal Tiger" },
   { src: "03-Giraffe.png", alt: "Giraffe" },
@@ -17,7 +17,7 @@ const images = [
   { src: "05-Dolphin.png", alt: "Dolphin" },
   { src: "06-BaldEagle.png", alt: "Bald Eagle" },
   { src: "07-GiantPanda.png", alt: "Giant Panda" },
-  { src: "08-Lion.png", alt: "Lion" },
+  { src: "08-Lion.png", alt: "Lion Family" },
   { src: "09-Zebra.png", alt: "Zebra" },
   { src: "10-Kangaroo.png", alt: "Kangaroo" },
   { src: "11-Hippopotamus.png", alt: "Hippopotamus" },
@@ -41,6 +41,19 @@ const App = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Speak current image name
+  const speakImageName = () => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel(); // Stop any ongoing speech
+      const utterance = new SpeechSynthesisUtterance(images[currentIndex].alt);
+      utterance.lang = 'en-US';
+      utterance.rate = 1;
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert("Sorry, your browser doesn't support text-to-speech.");
+    }
+  };
 
   const handleNext = () => {
     setIsFading(true);
@@ -146,7 +159,7 @@ const App = () => {
         <section className={textSectionClass}>
           <header>
             <h1 className="fluid-heading font-extrabold text-color-primary text-center md:text-left leading-tight mb-8">
-              Pablo Picasso
+              {images[currentIndex].alt}
             </h1>
           </header>
           <div className="flex space-x-4">
@@ -156,13 +169,16 @@ const App = () => {
             <button onClick={handleNext} className="btn-primary" aria-label="Next Image">
               Next
             </button>
+            <button onClick={speakImageName} className="btn-primary" aria-label="Speak Image Name">
+              🔊 Speak
+            </button>
           </div>
-          <button
+          {/* <button
             onClick={toggleDarkMode}
             className="mt-8 px-4 py-2 text-sm font-semibold rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 transition-colors duration-300"
           >
             Toggle Dark Mode
-          </button>
+          </button> */}
         </section>
       </div>
     </div>
