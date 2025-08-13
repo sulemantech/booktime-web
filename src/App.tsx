@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+//Changed the images alt text
 const images = [
   { src: "peakabooshapes (1).png", alt: "This is a Cube" },
   { src: "peakabooshapes (2).png", alt: "Sun is Circle" },
