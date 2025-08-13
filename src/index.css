@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom variables and overrides from your HTML <style> */
+:root {
+  --bg-light: #f9fafb;
+  --bg-dark: #111827;
+  --text-light: #1f2937;
+  --text-dark: #f9fafb;
+  --card-bg-light: #ffffff;
+  --card-bg-dark: #1f2937;
+  --accent-color: #4f46e5;
+  --accent-hover: #4338ca;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 300ms ease;
+  background-color: var(--bg-light);
+}
+
+.dark body {
+  background-color: var(--bg-dark);
+}
+
+/* Optional: utility-like custom classes */
+.text-color-primary {
+  color: var(--text-light);
+}
+.dark .text-color-primary {
+  color: var(--text-dark);
+}
+
+.bg-color-card {
+  background-color: var(--card-bg-light);
+}
+.dark .bg-color-card {
+  background-color: var(--card-bg-dark);
+}
+
+/* Button style (can also be replaced with Tailwind classes directly in JSX) */
+.btn-primary {
+  background-color: var(--accent-color);
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 200ms;
+}
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  transform: scale(1.05);
+}
+
+/* Fluid heading */
+.fluid-heading {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+}
