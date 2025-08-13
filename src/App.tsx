@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // The images array is now a constant within the component
 const images = [
@@ -28,31 +28,16 @@ const images = [
     { src: "15-Cheetah.png", alt: "Cheetah" }
 ];
 
-// Tailwind config for dark mode. In a real Vite project, this would be in tailwind.config.js
-const tailwindConfig = {
-    darkMode: 'class',
-    theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Inter', 'sans-serif'],
-            }
-        }
-    }
-};
-
 const App = () => {
     // Use useState to manage the current image index
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [isFading, setIsFading] = useState(false);
 
-    // This useEffect hook runs only on component mount to set up Tailwind and font
+    // This useEffect hook runs only on component mount to simulate Tailwind config loading
+    // and is not needed in a real project where Tailwind is configured globally.
     useEffect(() => {
-        // Since we're in a single file, we simulate the Tailwind config loading
-        window.tailwind = tailwindConfig;
-        
-        // This simulates the initial image load.
-        // In a real app, you would handle this inside the component render.
+      // No code needed here in the final version
     }, []);
 
     // Function to handle switching to the next image
@@ -78,13 +63,12 @@ const App = () => {
         setIsDarkMode(!isDarkMode);
     };
 
-    // The dark mode class is applied to the body or main container.
-    const bodyClass = isDarkMode ? 'dark' : '';
     const mainClass = `w-full h-full flex flex-col md:flex-row ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`;
+    const sectionClass = `w-full h-1/2 md:w-1/2 p-8 md:p-12 flex flex-col items-center justify-center bg-color-card transition-colors duration-300`;
 
     return (
-        <>
-            {/* The style block and links are included here for the self-contained nature of this immersive document */}
+        <div className={isDarkMode ? 'dark' : ''}>
+            {/* The style block is still required to make the app self-contained and for custom classes */}
             <style>
                 {`
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -145,17 +129,20 @@ const App = () => {
             <div className={mainClass}>
                 {/* Left Section: Image Gallery */}
                 <section className="w-full h-1/2 md:w-1/2 flex items-center justify-center">
-                    <img 
+                    <img
                         src={"./" + images[currentIndex].src}
                         alt={images[currentIndex].alt}
-                        tabIndex="0"
+                        tabIndex={0}
                         className={`w-full h-full object-cover shadow-lg gallery-image max-w-full ${isFading ? 'fade-out' : 'fade-in'}`}
-                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/600x400/94A3B8/FFFFFF?text=Image+Not+Found'; }}
+                        onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = 'https://placehold.co/600x400/94A3B8/FFFFFF?text=Image+Not+Found';
+                        }}
                     />
                 </section>
                 
                 {/* Right Section: Text and Buttons */}
-                <section className={`w-full h-1/2 md:w-1/2 p-8 md:p-12 flex flex-col items-center justify-center bg-color-card transition-colors duration-300`}>
+                <section className={sectionClass}>
                     <header>
                         <h1 className="fluid-heading font-extrabold text-color-primary text-center md:text-left leading-tight mb-8">
                             Pablo Picasso
@@ -170,12 +157,12 @@ const App = () => {
                         </button>
                     </div>
                     {/* Dark mode toggle button */}
-                    {/* <button onClick={toggleDarkMode} className="mt-8 px-4 py-2 text-sm font-semibold rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+                    <button onClick={toggleDarkMode} className="mt-8 px-4 py-2 text-sm font-semibold rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 transition-colors duration-300">
                         Toggle Dark Mode
-                    </button> */}
+                    </button>
                 </section>
             </div>
-        </>
+        </div>
     );
 };
 
