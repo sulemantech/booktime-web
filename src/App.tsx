@@ -56,20 +56,16 @@ const App = () => {
   };
 
   const handleNext = () => {
-    setIsFading(true);
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-      setIsFading(false);
-    }, 300);
-  };
+  setIsFading(true);
+  setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  setTimeout(() => setIsFading(false), 300);
+};
 
-  const handlePrev = () => {
-    setIsFading(true);
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-      setIsFading(false);
-    }, 300);
-  };
+const handlePrev = () => {
+  setIsFading(true);
+  setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  setTimeout(() => setIsFading(false), 300);
+};
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
